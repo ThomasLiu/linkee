@@ -1,0 +1,23 @@
+extends ../layout
+block content
+    .panel.login-div
+        .inner
+            h3= config.description
+            .login-form-div
+                if(error)
+                    .alert.alert-danger
+                        a.close(data-dismiss="alert",href="#") &times;
+                        strong= error
+                form(action='/reset_pass',method='post')
+                    .form-group
+                        input.form-control(type='password',placeholder='新密码',name='psw',size='30')
+                    .form-group
+                        input.form-control(type='password',placeholder='确认密码',name='repsw',size='30')
+
+                    input(type='hidden',name='_csrf',value='#{csrf || ""}')
+                    input(type='hidden',name='name',value='#{name || ""}')
+                    input(type='hidden',name='key',value='#{key || ""}')
+                    button.btn.btn-primary(type="submit") 提交
+                    a#forgot_password(href='/signin') 返回登陆
+
+

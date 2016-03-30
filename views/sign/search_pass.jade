@@ -1,0 +1,22 @@
+extends ../layout
+block content
+    .panel
+        .inner
+            h3= config.description
+                if(error)
+                    .alert.alert-danger
+                        a.close(data-dismiss="alert",href="#") &times;
+                        strong= error
+                form(action='/search_pass',method='post')
+                    .form-group
+                        input.form-control(type='text',name='email',size='30',placeholder='电子邮箱',required,value='#{email || ""}')
+                    .form-group
+                        p 请输入您注册帐户时使用的电子邮箱
+
+                    input(type='hidden',name='_csrf',value='#{csrf || ""}')
+                    button.btn.btn-primary(type="submit") 提交
+                    a#forgot_password(href='/signin') 返回登陆
+
+
+
+

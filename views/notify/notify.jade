@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+    .panel
+        .inner
+            if(error)
+                .alert.alert-error
+                    srtong= error
+            if(success)
+                .alert.alert-success
+                    srtong= success
+            if(referer)
+                a.btn.btn-primary(href=referer)
+                    span.span-common 返回
+            else
+                a.btn.btn-primary(href='/')
+                    span.span-common 返回
+

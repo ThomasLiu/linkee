@@ -1,0 +1,18 @@
+.well
+    form(method='post',action='/setting/0/save')
+        input(type='hidden',name='_csrf',value='#{csrf || ""}')
+        .form-group
+            label 首页介绍标题
+            textarea.form-control(name='title') #{setting.paramsObj.title || ""}
+        .form-group
+            label 首页介绍内容
+            textarea.form-control(name='introduce') #{setting.paramsObj.introduce || ""}
+        .form-group
+            label 首页logo(建议是png)
+            .uploader-list
+            div(data-uploader-pricture,name='logo_url',data-value='#{setting.paramsObj.logo_url || ""}') 上传图片
+        .form-group
+            label 首页背景(建议是2400*1200的 高压缩的图片)
+            .uploader-list
+            div(data-uploader-pricture,name='bg_url',data-value='#{setting.paramsObj.bg_url || ""}') 上传图片
+        button.btn.btn-default(type='submit') 修改

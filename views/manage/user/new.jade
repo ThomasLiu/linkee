@@ -1,0 +1,18 @@
+.well
+    form.form-inline(method='post',action='/user/put')
+        input(type='hidden',name='_id',value='#{editUser._id || ""}')
+        input(type='hidden',name='_csrf',value='#{csrf || ""}')
+        .form-group
+            if(editUser._id)
+                input.form-control(type='text',name='loginname',value='#{editUser.loginname || ""}',required,readonly)
+            else
+                input.form-control(type='text',name='loginname',value='#{editUser.loginname || ""}',placeholder='登录帐号',required)
+        .form-group
+            input.form-control(type='password',name='pass',value='#{editUser.pass || ""}',placeholder='登录密码',required)
+        button.btn.btn-default(type='submit')
+            if(editUser._id)
+                span 修改
+            else
+                span 新建用户
+        if(editUser._id)
+            a.btn.btn-default.pull-right(href='/manage') 取消修改

@@ -1,0 +1,73 @@
+extends ../index_layout
+
+block content
+    #layout.main
+        form
+            input(type='hidden',name='_id',value='#{theme._id}')
+            input(type='hidden',name='_csrf',value='#{csrf || ""}')
+            each activity in theme.other_activitys
+                input.count-money(type='hidden',name='otherActivitys',value='#{activity._id}',id='#{activity._id}',data-avg='#{activity.avg}')
+            img#background_image(style='opacity:1;',src='#{theme.main_activity.bg_img}')
+            #layer.theme-layer
+                .effect-lines-left
+
+                .projects
+                    h3.main-activity-title
+                        span.text 主题活动: #{theme.main_activity.name}
+                        span.money.count-money(data-avg='#{theme.main_activity.avg}') #{theme.main_activity.avg}/人
+                    p.introduce #{theme.main_activity.info}
+
+                    h3 包含活动
+                    #other_activitys.clearfix.activity-content
+                        if(theme.other_activitys.length > 0)
+                            each activity in theme.other_activitys
+                                .project
+                                    .info
+                                        .content
+                                            .title #{activity.name}
+                                            span.count #{activity.avg}/人
+                                            button.btn(type='button',data-avg='#{activity.avg}',data-id='#{activity._id}') 不要这活动
+                                            .tags #{activity.info}
+                                    img.thumb(src='#{activity.bg_img}')
+                                    .preload
+                        else
+                            p 只有一个主题活动
+
+
+                    h3 备选活动
+                    #back_up_activitys.clearfix
+                        if(theme.back_up_activitys.length > 0)
+                            each activity in theme.back_up_activitys
+                                .project
+                                    .info
+                                        .content
+                                            .title #{activity.name}
+                                            span.count #{activity.avg}/人
+                                            button.btn(type='button',data-avg='#{activity.avg}',data-id='#{activity._id}') 添加这活动
+                                            .tags #{activity.info}
+                                    img.thumb(src='#{activity.bg_img}')
+                                    .preload
+                        else
+                            p 没有可选的备选活动
+
+            .menuLeft
+                a.logo(href='/')
+                h1.title #{theme.name}
+                p.introduce #{theme.info}
+
+                #choose.clearfix
+                    if(theme.meals.length > 0)
+                        select.count-money(name="meal",data-avg='#{theme.meals[0].avg}')
+                            each meal in theme.meals
+                                option(value='#{meal._id}',data-avg-value='#{meal.avg}') #{meal.name} #{meal.avg}/人
+                    if(theme.lodges.length > 0)
+                        select.count-money(name="lodge",data-avg='#{theme.lodges[0].avg}')
+                            each lodge in theme.lodges
+                                option(value='#{lodge._id}',data-avg-value='#{lodge.avg}') #{lodge.name} #{lodge.avg}/人
+
+                input(type='text',placeholder='联系电话',name='phone',required)
+                p.apply
+                    span 全部人均
+                    span#total_money.money #{theme.avg}
+                    button.btn.pull-right.apply-btn(type='button') 申请策划
+        include ./bottom

@@ -1,0 +1,43 @@
+//
+   Created by activity on 20/9/15.
+extends ../../layout
+block content
+    +menu(config.menus)
+    .container
+        h3 #{title}
+        hr
+        form.select-form(method='get',action='/activity/#{area._id || ""}')
+            input#_csrf(type='hidden',name='_csrf',value='#{csrf || ""}')
+            .input-group
+                input.form-control(type='text',name='kw',value='#{kw || ""}',placeholder='搜索活动元素，可以用活动元素名/商家名/联系人名/联系电话/电话')
+                span.input-group-btn
+                    button.btn.btn-default(type="submit") 搜索
+            +pagination(current_page, pages, activitys.length, '/activity?kw=' + (kw || '') + '&page=')
+
+        hr
+
+        .row
+            .col-md-4
+                include ./new
+            if(activitys.length > 0)
+                each activity in activitys
+                    .col-md-4
+                        .thumbnail
+                            img(src='#{activity.holder_img || ""}')
+                            .caption
+                                h3 #{activity.name}
+                                p #{activity.info}
+                                ul
+                                    li 人均: #{activity.avg}
+                                    li 提供商家: #{activity.company_name}
+                                    li 地址: #{activity.address}
+                                    li 电话: #{activity.telephone}
+                                    li 联系人: #{activity.linkman_mobile}
+                                    li 联系电话: #{activity.linkman_name}
+                                p
+                                    a.btn.btn-warning.btn-xs(href='/activity/#{area._id || ""}?activityId=#{activity._id}') 编辑
+            else
+                .col-md-4
+                    .alert.alert-warning 没有该类活动
+
+

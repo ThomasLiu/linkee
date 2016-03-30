@@ -1,0 +1,34 @@
+.thumbnail
+
+    form(method='post',action='/activity/put')
+        input(type='hidden',name='_id',value='#{editActivity._id || ""}')
+        input(type='hidden',name='_csrf',value='#{csrf || ""}')
+        input(type='hidden',name='area_id',value='#{area._id || ""}')
+        .form-group
+            input.form-control(type='text',name='name',value='#{editActivity.name || ""}',placeholder='活动元素名',required)
+        .form-group
+            input.form-control(type='number',name='avg',value='#{editActivity.avg || ""}',placeholder='人均费用(元)',required)
+        .form-group
+            textarea.form-control(name='info',placeholder='活动介绍',required) #{editActivity.info || ""}
+        .form-group
+            input.form-control(type='text',name='company_name',value='#{editActivity.company_name || ""}',placeholder='提供商家',required)
+        .form-group
+            textarea.form-control(type='text',name='address',placeholder='地址') #{editActivity.address || ""}
+        .form-group
+            input.form-control(type='text',name='telephone',value='#{editActivity.telephone || ""}',placeholder='电话')
+        .form-group
+            input.form-control(type='text',name='linkman_name',value='#{editActivity.linkman_name || ""}',placeholder='联系人',required)
+        .form-group
+            input.form-control(type='text',name='linkman_mobile',value='#{editActivity.linkman_mobile || ""}',placeholder='联系电话',required)
+        .form-group
+            label 背景(建议是2400*1200的 高压缩的图片)
+            .uploader-list
+            div(data-uploader-pricture,name='bg_img',data-value='#{editActivity.bg_img || ""}') 上传图片
+
+        button.btn.btn-default(type='submit')
+            if(editActivity._id)
+                span 修改
+            else
+                span 新建活动
+        if(editActivity._id)
+            a.btn.btn-default.pull-right(href='/activity/#{area._id || ""}') 取消修改

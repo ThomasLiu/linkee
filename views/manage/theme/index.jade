@@ -1,0 +1,56 @@
+//
+   Created by theme on 20/9/15.
+extends ../../layout
+block content
+    +menu(config.menus)
+    .container
+        h3 #{title}
+        hr
+        form.select-form(method='get',action='/theme/#{area._id || ""}')
+            input#_csrf(type='hidden',name='_csrf',value='#{csrf || ""}')
+            .input-group
+                input.form-control(type='text',name='kw',value='#{kw || ""}',placeholder='搜索活动主题，可以用主题名')
+                span.input-group-btn
+                    button.btn.btn-default(type="submit") 搜索
+            +pagination(current_page, pages, themes.length, '/theme?kw=' + (kw || '') + '&page=')
+
+        hr
+
+        .row
+            .col-md-4
+                include ./new
+            if(themes.length > 0)
+                each theme in themes
+                    .col-md-4
+                        .thumbnail
+                            img(src='#{theme.main_activity.holder_img || ""}')
+                            .caption
+                                h3 #{theme.name}
+                                p #{theme.info}
+
+                                h4 核心活动: #{theme.main_activity.name} #{theme.main_activity.avg}
+                                span 配套活动
+                                ul
+                                    each this_activity in theme.other_activitys
+                                        li #{this_activity.name} #{this_activity.avg}
+                                span 备选活动
+                                    ul
+                                        each this_activity in theme.back_up_activitys
+                                            li #{this_activity.name} #{this_activity.avg}
+                                span 可选餐
+                                    ul
+                                        each this_meal in theme.meals
+                                            li #{this_meal.name} #{this_meal.avg}
+                                span 可选旅店
+                                    ul
+                                        each this_lodge in theme.lodges
+                                            li #{this_lodge.name} #{this_lodge.avg}
+
+
+                                p
+                                    a.btn.btn-warning.btn-xs(href='/theme/#{area._id || ""}?themeId=#{theme._id}') 编辑
+            else
+                .col-md-4
+                    .alert.alert-warning 没有该类活动
+
+

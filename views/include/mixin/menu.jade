@@ -1,0 +1,23 @@
+mixin menu(menus)
+    nav.navbar.navbar-default.navbar-fixed-top
+        .container-fluid
+            .navbar-header
+                a.navbar-brand(href='/manage') 首页
+            .collapse.navbar-collapse
+                ul.nav.navbar-nav
+                    each menuLi in menus
+                        if(menuLi.is_admin)
+                            if(current_user.is_admin)
+                                li
+                                    a(href='#{menuLi.href}') #{menuLi.name}
+                        else
+                            li
+                                a(href='#{menuLi.href}') #{menuLi.name}
+                ul.nav.navbar-nav.navbar-right
+                    li.dropdown
+                        a.dropdown-toggle(href="#",class="dropdown-toggle",data-toggle="dropdown",role="button",aria-haspopup="true",aria-expanded="false") 设置
+                            span.caret
+                        ul.dropdown-menu
+                            li
+                                a(href="/signout") 退出
+

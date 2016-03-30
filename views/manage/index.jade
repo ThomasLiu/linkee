@@ -1,0 +1,14 @@
+extends ../layout
+block content
+    +menu(config.menus)
+    .container
+        include ./area/index
+        if(current_user.is_admin)
+            include ./setting/base
+
+        //.uploader-list
+        //
+        //
+        //hr
+        //
+        //script(data-ueditor,id='container',name='info',type='text/plain',style='width:100%;height:360px;')

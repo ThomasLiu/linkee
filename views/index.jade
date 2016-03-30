@@ -1,0 +1,37 @@
+extends index_layout
+
+block content
+  #layout.main
+    img#background_image(style='opacity:1;',src='#{setting.paramsObj.bg_url || ""}')
+    if(areas.length > 1)
+      #top.top
+        ul.inline.menu
+
+          each area in areas
+            if(area.name === showArea.name)
+              li.active
+                a(href='/#{area._id}/index') #{area.name}
+            else
+              li
+                a(href='/#{area._id}/index') #{area.name}
+
+    #layer
+      .effect-lines-left
+      .effect-lines-right
+      #header
+        img#logo(src='#{setting.paramsObj.logo_url || ""}')
+      #content
+        h1#title #{setting.paramsObj.title || ""}
+        p#introduce #{setting.paramsObj.introduce || ""}
+
+    #lenta.lenta(data-id='#{showArea._id}')
+      #gallery.grallery
+        #holder.holder
+          table#lenta_table
+            tr
+      .lenta_left_grad
+      .lenta_right_grad
+      a#gotoLeft.arrow.left
+      a#gotoRight.arrow.right
+    include ./index/bottom
+

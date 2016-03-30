@@ -1,0 +1,108 @@
+.thumbnail
+
+    form(method='post',action='/theme/put')
+        input(type='hidden',name='_id',value='#{editTheme._id || ""}')
+        input(type='hidden',name='_csrf',value='#{csrf || ""}')
+        input(type='hidden',name='area_id',value='#{area._id || ""}')
+        .form-group
+            input.form-control(type='text',name='name',value='#{editTheme.name || ""}',placeholder='主题活动名',required)
+        .form-group
+            textarea.form-control(name='info',placeholder='主题及流程介绍',required) #{editTheme.info || ""}
+        .form-group
+            label
+                span 选择核心活动 (如没有要选活动请
+                a(href='/activity/#{area._id || ""}') 新建
+                span )
+            select.form-control(name='main_activity')
+                each activity in activitys
+                    if(editTheme._id === activity._id)
+                        option(value='#{activity._id}',selected) #{activity.name} #{activity.avg}/人
+                    else
+                        option(value='#{activity._id}') #{activity.name} #{activity.avg}/人
+        .form-group
+            label
+                span 添加配套活动 (如没有要选活动请
+                a(href='/activity/#{area._id || ""}') 新建
+                span )
+            select.form-control(data-name='other_activitys')
+                option(value='') 请选择
+                each activity in activitys
+                    option(value='#{activity._id}') #{activity.name} #{activity.avg}/人
+            ul.list-unstyled.theme-more-data
+                if(editTheme.other_activitys && editTheme.other_activitys.length > 0)
+                    each activity in editTheme.other_activitys
+                        li.relevance-data
+                            input(type='hidden',name='other_activitys',value='#{activity._id}')
+                            span #{activity.name} #{activity.avg}/人
+                            button.close(type='button')
+                                span &times;
+        .form-group
+            label
+                span 添加备选活动 (如没有要选活动请
+                a(href='/activity/#{area._id || ""}') 新建
+                span )
+
+            select.form-control(data-name='back_up_activitys')
+                option(value='') 请选择
+                each activity in activitys
+                    option(value='#{activity._id}') #{activity.name} #{activity.avg}/人
+            ul.list-unstyled.theme-more-data
+                if(editTheme.back_up_activitys && editTheme.back_up_activitys.length > 0)
+                    each activity in editTheme.back_up_activitys
+                        li.relevance-data
+                            input(type='hidden',name='back_up_activitys',value='#{activity._id}')
+                            span #{activity.name} #{activity.avg}/人
+                            button.close(type='button')
+                                span &times;
+        .form-group
+            label 添加可选餐
+            select.form-control(data-name='meals')
+                option(value='') 请选择
+                each meal in meals
+                    option(value='#{meal._id}') #{meal.name} #{meal.avg}/人
+                option(value='new') 添加新的
+
+            .new-info-div.well.well-sm.hidden(data-url='/meal/putJson')
+                .form-group
+                    input.form-control(type='text',data-name='name',placeholder='餐名')
+                .form-group
+                    input.form-control(type='number',data-name='avg',placeholder='人均(元)')
+                button.btn.btn-default.btn-xs(type='button') 添加
+            ul.list-unstyled.theme-more-data
+                if(editTheme.meals && editTheme.meals.length > 0)
+                    each meal in editTheme.meals
+                        li.relevance-data
+                            input(type='hidden',name='meals',value='#{meal._id}')
+                            span #{meal.name} #{meal.avg}/人
+                            button.close(type='button')
+                                span &times;
+        .form-group
+            label 添加可选旅店
+            select.form-control(data-name='lodges')
+                option(value='') 请选择
+                each lodge in lodges
+                    option(value='#{lodge._id}') #{lodge.name} #{lodge.avg}/人
+                option(value='new') 添加新的
+
+            .new-info-div.well.well-sm.hidden(data-url='/lodge/putJson')
+                .form-group
+                    input.form-control(type='text',data-name='name',placeholder='旅店')
+                .form-group
+                    input.form-control(type='number',data-name='avg',placeholder='人均(元)')
+                button.btn.btn-default.btn-xs(type='button') 添加
+            ul.list-unstyled.theme-more-data
+                if(editTheme.lodges && editTheme.lodges.length > 0)
+                    each lodge in editTheme.lodges
+                        li.relevance-data
+                            input(type='hidden',name='lodges',value='#{lodge._id}')
+                            span #{lodge.name} #{lodge.avg}/人
+                            button.close(type='button')
+                                span &times;
+
+        button.btn.btn-default(type='submit')
+            if(editTheme._id)
+                span 修改
+            else
+                span 新建活动
+        if(editTheme._id)
+            a.btn.btn-default.pull-right(href='/theme/#{area._id || ""}') 取消修改

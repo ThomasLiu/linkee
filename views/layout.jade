@@ -1,0 +1,46 @@
+include include/main
+
+doctype html
+html
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible',content='IE=edge')
+    meta(name='description',content=config.description)
+    meta(name='viewport',content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+
+    meta(name='apple-mobile-web-app-capable',content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style',content='black')
+    meta(name='csrf-param',content='_csrf')
+    meta(name='csrf-token',content='#{csrf || ""}')
+
+    link(rel='stylesheet', href='http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css')
+
+    link(rel='stylesheet', href='/css/style.css')
+
+    block cssBlock
+
+  body
+    block content
+
+
+    script.
+      var hostPath = 'http://#{config.host}';
+
+    script(src='/jspm_packages/system.js')
+    script(src='/config.js')
+    script.
+      System.import('/app/main.js')
+    block jsBlock
+
+    if(editError)
+      .modal.fade#editErrorModal(tabindex='-1',role='dialog',aria-labelledby='editErrorModalLabel')
+        .modal-dialog(role='document')
+          .modal-content
+            .modal-header
+              button.close(type='button',data-dismiss='modal',aria-label='Close')
+                span(aria-hidden='true') &times;
+              h4.modal-title#editErrorModalLabel 填写错误
+            .modal-body #{editError}
+
+

@@ -1,0 +1,35 @@
+.well
+    if(areas.length > 0)
+        strong 现有的代理地区
+        ul.list-inline
+            each area in areas
+                li
+                    span #{area.name}
+                    span (
+                    a(href='/activity/#{area._id}') 活动元素设置
+                    span |
+                    a(href='/theme/#{area._id}') 主题活动设置
+                    if(current_user.is_admin)
+                        span |
+                        a(href='/manage?areaId=#{area._id}') 编辑
+                    span )
+    else
+        p 未设置代理地区
+    if(current_user.is_admin)
+        hr
+        form.form-inline(method='post',action='/area/put')
+            input(type='hidden',name='_id',value='#{editArea._id || ""}')
+            input(type='hidden',name='_csrf',value='#{csrf || ""}')
+            .form-group
+                input.form-control(type='text',name='name',value='#{editArea.name || ""}',placeholder='新代理点地区',required)
+            .form-group
+                input.form-control(type='text',name='telphone',value='#{editArea.telphone || ""}',placeholder='新代理点联系电话(显示与首页底部)',title='新代理点联系电话(显示与首页底部)',required)
+            .form-group
+                input.form-control(type='text',name='email',value='#{editArea.email || ""}',placeholder='新代理点联系邮箱(显示与首页底部)',title='新代理点联系电话(显示与首页底部)',required)
+            button.btn.btn-default(type='submit')
+                if(editArea._id)
+                    span 修改
+                else
+                    span 新将代理地区
+            if(editArea._id)
+                a.btn.btn-default.pull-right(href='/manage') 取消修改
