@@ -25,6 +25,9 @@ exports.index = (req, res, next) => {
         if(!editArea){
             editArea = {};
         }
+        if(!setting){
+            setting = {};
+        }
         if(!setting.paramsObj){
             setting.paramsObj = {};
         }

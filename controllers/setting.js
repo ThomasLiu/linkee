@@ -14,7 +14,7 @@ exports.put = function (req, res, next) {
         if (err) {
             return next(err);
         }
-        if(!setting._id){
+        if(!setting || !setting._id){
             setting = new Setting();
             setting.setting_type = settingType;
         }

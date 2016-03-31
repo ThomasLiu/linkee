@@ -20,6 +20,14 @@ var Area = models.Area;
 exports.list =  (req, res, next) => {
     var areaId = validator.trim(req.params.areaId);
 
+    if(!areaId || areaId === 'undefined'){
+        res.json({
+            err_msg: '没有地区信息',
+            stutas: 500
+        });
+        return;
+    }
+
     var query = {area_id : areaId};
 
     var ep = new eventproxy();

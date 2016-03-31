@@ -25,8 +25,13 @@ exports.index = function (req, res, next) {
             setting.paramsObj = {};
         }
         if(!showArea){
-            showArea = areas[0];
+            if(areas.length > 0){
+                showArea = areas[0];
+            }else{
+                showArea = {}
+            }
         }
+
         res.render('index', {
             areas : areas,
             setting : setting,
