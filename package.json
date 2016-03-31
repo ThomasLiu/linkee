@@ -10,7 +10,9 @@
   "homepage": "https://github.com/ThomasLiu/DatetimeSelect#readme",
   "scripts": {
     "start": "node ./bin/www",
-    "test": "./node_modules/.bin/mocha-phantomjs f2e/index.html"
+    "test": "./node_modules/.bin/mocha-phantomjs f2e/index.html",
+    "build-index": "jspm bundle-sfx app/index_main public/dist/index_build.js --minify",
+    "build-main": "jspm bundle-sfx app/main public/dist/main_build.js --minify"
   },
   "dependencies": {
     "async": "^0.9.0",

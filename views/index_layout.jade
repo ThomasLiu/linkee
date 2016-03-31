@@ -24,9 +24,10 @@ html
         script.
             var hostPath = 'http://#{config.host}';
 
-        script(src='/jspm_packages/system.js')
-        script(src='/config.js')
-        script.
-            System.import('/app/index_main.js')
+        //script(src='/jspm_packages/system.js')
+        //script(src='/config.js')
+        //script.
+        //    System.import('/app/index_main.js')
+        script(src='/dist/index_build.js')
         block jsBlock
 

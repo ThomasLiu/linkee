@@ -16,7 +16,10 @@ html
 
     link(rel='stylesheet', href='http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css')
 
+
     link(rel='stylesheet', href='/css/style.css')
+
+    link(rel='stylesheet', href='/dist/main_build.css')
 
     block cssBlock
 
@@ -27,10 +30,11 @@ html
     script.
       var hostPath = 'http://#{config.host}';
 
-    script(src='/jspm_packages/system.js')
-    script(src='/config.js')
-    script.
-      System.import('/app/main.js')
+    //script(src='/jspm_packages/system.js')
+    //script(src='/config.js')
+    //script.
+    //  System.import('/app/main.js')
+    script(src='/dist/main_build.js')
     block jsBlock
 
     if(editError)

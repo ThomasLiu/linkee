@@ -15,7 +15,8 @@ export function initThemePageUi() {
                 $ul = $('ul',$formGroup),
                 url = $thisNewInfoDiv.data('url'),
                 $dataName = $('[data-name]',$thisNewInfoDiv),
-                params = {};
+                _csrf = $('[name=_csrf]').val() || $('meta[name="csrf-token"]').attr('content') ,
+                params = {_csrf:_csrf};
             $dataName.map( (i, item) => {
                 let $item = $(item);
                 params[$item.data('name')] = $item.val();

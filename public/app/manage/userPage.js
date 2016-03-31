@@ -4,10 +4,11 @@ export function initUserPageUi() {
 
     $('.user-role-radio').on('change', (e) => {
         let $this = $(e.currentTarget),
-            $tr = $this.closest('tr');
+            $tr = $this.closest('tr'),
+            _csrf = $('[name=_csrf]').val() || $('meta[name="csrf-token"]').attr('content');
 
         if($this.prop('checked')){
-            $.post(`${hostPath}/user/${$tr.data('id')}/${$this.data('value')}/changeRoleJson`,{},(json) => {
+            $.post(`${hostPath}/user/${$tr.data('id')}/${$this.data('value')}/changeRoleJson`,{_csrf : _csrf},(json) => {
                 if(json && (json.stutas === 200 || json.stutas === '200')){
                     alert('修改成功');
                 }else{
@@ -40,13 +41,14 @@ export function initUserPageUi() {
             $userAreaCheckbox.on('change', (e) => {
                 var $checkbox = $(e.currentTarget),
                     $tr = $checkbox.closest('tr'),
-                    isAdd = 0;
+                    isAdd = 0,
+                    _csrf = $('[name=_csrf]').val() || $('meta[name="csrf-token"]').attr('content');
 
                 if($checkbox.prop('checked')){
                     isAdd = 1
                 }
 
-                $.post(`${hostPath}/user/${id}/${$checkbox.data('value')}/${isAdd}/addAreaJson`,{},(addJson) => {
+                $.post(`${hostPath}/user/${id}/${$checkbox.data('value')}/${isAdd}/addAreaJson`,{_csrf: _csrf},(addJson) => {
                     if(addJson && (addJson.stutas === 200 || addJson.stutas === '200')){
                         alert('修改成功');
                     }else{
