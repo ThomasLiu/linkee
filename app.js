@@ -1,3 +1,7 @@
+var realFs = require('fs')
+var gracefulFs = require('graceful-fs')
+gracefulFs.gracefulify(realFs);
+
 var config = require('./web_config');
 
 require('colors');
