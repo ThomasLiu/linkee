@@ -18,6 +18,9 @@ exports.index = function (req, res, next) {
 
     ep.fail(next);
     ep.all('areas', 'setting','showArea', (areas, setting, showArea) => {
+        if(!setting){
+            setting = {};
+        }
         if(!setting.paramsObj){
             setting.paramsObj = {};
         }
